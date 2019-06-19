@@ -1,0 +1,5 @@
+yaw 60
+fire
+cut
+pitch 90
+fire
