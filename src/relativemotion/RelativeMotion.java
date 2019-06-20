@@ -29,6 +29,7 @@ public class RelativeMotion extends JPanel{
     static int x,y;
     static int scale;
     Physics[] objects = new Physics[3];
+    static Rocket rock;
     public static void main(String[] args) throws InterruptedException {
         // create a basic JFrame
         JFrame frame = new JFrame("JFrame Color Example");
@@ -53,18 +54,22 @@ public class RelativeMotion extends JPanel{
                 //frame.setSize(y,x);
             }
         });
-        
         try {
-            panel.objects[0] = new Rocket(0,0,0,0,0,0,400);
+            rock = new Rocket(0,0,0,0,2,0,20);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(RelativeMotion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        panel.objects[1] = new Physics(9000,9000,0,0,0,0,30);
-        panel.objects[2] = new Physics(5,5,0,0,0,0,3);
+        //Objects 
+        panel.objects[0] = new Physics (10,30,40,-5,5,-5,30);
+        panel.objects[1] = new Physics(15,15,15,-2,7,-3,30);
+        panel.objects[2] = new Physics(15,15,0,9,-2,3,30);
+        
+        //do stuff forever and ever
         while(true){
             for (int i=0; i<panel.objects.length; i++){
                 panel.objects[i].go();
             }
+            rock.go();
             panel.draw();
             Thread.sleep(300);
         }
@@ -73,7 +78,12 @@ public class RelativeMotion extends JPanel{
         
         
     }
-
+    /**
+     * Paint
+     * paints all onscreen objects
+     * @param g 
+     */
+    @Override
     public void paint(Graphics g) {
     g.setColor(Color.green);
     Graphics2D g2d = (Graphics2D) g;
@@ -100,30 +110,26 @@ public class RelativeMotion extends JPanel{
     
     double theta = Math.atan((2*x)/(2*y));
     
+    //paints objects
+    int rocX = (int)(Math.round(rock.getX()) + Math.round(rock.getZ())+x);
+    int rocY = (int)(Math.round(rock.getY()) - Math.round(rock.getZ())+y);
+    g.drawRect(rocX, rocY, 5, 5);
+    g.drawLine(rocX, rocY, rocX, (int) (rocY+rock.getY()));
     for(int i=0; i<objects.length; i++){
-        int objscrnX = (int)Math.round(objects[i].getZ()*Math.cos(theta)+objects[i].getX())/x+x;
-        int objscrnY = (int)Math.round(objects[i].getZ()*Math.sin(theta)+objects[i].getY())/y+y;
-        double zScale = (Math.sqrt(x*x+y*y)/2);
-        int verticalViewY = (int)Math.round((((y/x)*(objects[i].getZ()-objects[i].getX()))/y)+y);
+        int objscrnX = (int)(Math.round(objects[i].getX()) + Math.round(objects[i].getZ())+x);
+        int objscrnY = (int)(Math.round(objects[i].getY()) - Math.round(objects[i].getZ())+y);
         g.drawOval(objscrnX, objscrnY, 5, 5);
-        g.drawLine(objscrnX, 
-                objscrnY, 
-                objscrnX, 
-                verticalViewY);
+        g.drawLine(objscrnX, objscrnY, objscrnX, (int)(objscrnY + objects[i].getY()));
     }   
     repaint();
   }
     
     
         
-    public void trace(Physics object){
-            double x = object.getX();
-            double y = object.getY();
-            double z = object.getZ();
-
-            
-    }
     
+    /**
+     * repaints the screen
+     */
     public void draw(){
     repaint();
     }

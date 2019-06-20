@@ -1,5 +1,35 @@
-yaw 60
 fire
-cut
-pitch 90
+yaw 180
 fire
+continue
+continue
+continue
+continue
+continue
+continue
+continue
+continue
+continue
+continue
+continue
+continue
+continue
+continue
+continue
+pitch 20
+yaw 150
+fire
+fire
+fire
+fire
+fire
+continue
+continue
+continue
+continue
+continue
+continue
+continue
+continue
+continue
+

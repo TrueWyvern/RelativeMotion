@@ -41,7 +41,7 @@ public class Rocket extends Physics {
     public String readCommand(){
         Scanner sc = new Scanner(commandsIn);
         if(sc.hasNextLine()){
-        return sc.nextLine();
+            return sc.nextLine();
         }
         else{
             return "continue";
@@ -67,8 +67,8 @@ public class Rocket extends Physics {
                        ,Double.parseDouble(fireComponent[2]));  // direction vector
                 */
             }
-            else if("contine".equals(com[0])){
-                cont();
+            else if("continue".equals(com[0])){
+                
             }
             else if("cut".equals(com[0])){
                 cut();
@@ -109,15 +109,6 @@ public class Rocket extends Physics {
         forces[0] = vec; // adds Vector vec to slot 1 of Vector array (in Physics class)
     }
     */
-    private void cont() { // continue on for (turns) seconds 
-     
-//       forceOfEngine += 0;
-//       yaw(0);  // stays in place (y -direction)
-//       pitch(0); // stays in place (x -direction)
-//       for(int i = 0; i < turns; i++) {
-//           cont(i);      
-//       }
-    }
 
     private void cut() {
         forces[0] = null;
