@@ -70,7 +70,9 @@ public class Physics {
     }
     
     
-    
+    /**
+     * changes the velocity
+     */
     public void go(){
         spacialPositions[0] += velocity.x();  // adds the velocity to the position
         spacialPositions[1] += velocity.y();
@@ -78,6 +80,10 @@ public class Physics {
         useTheForce();  
        
     }
+    /**
+     * adds new forces to the forces list
+     * @param vec 
+     */
     public void addForce(Vector vec){  // adding any/all forces
         for (int i =1; i<forces.length; i++){
             if(forces[i]== null){
@@ -85,7 +91,9 @@ public class Physics {
             }
         }
     }
-    
+    /**
+     * Applies forces to change the velocity
+     */
     public void useTheForce(){  // each measure of velocity will be changed based on the acceleration
         for (int i = 0; i < forces.length; i++) { // no enhanced loop, java
             if(forces[i] != null) {

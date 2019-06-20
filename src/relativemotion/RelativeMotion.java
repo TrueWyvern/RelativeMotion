@@ -135,6 +135,4 @@ public class RelativeMotion extends JPanel{
     }
 
     
-    
-    
 }

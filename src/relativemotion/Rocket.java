@@ -14,9 +14,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+Matt, Aisik, Michelle, Liam
+    2019-06-11
+ * implements a commandable object that can change its own velocity
  */
 
 /**
@@ -37,7 +37,10 @@ public class Rocket extends Physics {
         angle = new double[]{0,0,0}; //x rot = "pitch", yrot = "yaw", zrot = "spin" in that order
         commandsIn = new FileReader("Command.txt");
     }
-
+    /**
+     * reads from the command document
+     * @return command
+     */
     public String readCommand(){
         Scanner sc = new Scanner(commandsIn);
         if(sc.hasNextLine()){
@@ -47,7 +50,9 @@ public class Rocket extends Physics {
             return "continue";
         }
     }
-    
+    /**
+     * runs the commands that change the rocket
+     */
     public void excecuteCommand(){  // this method checks the commands from the text file
         String[] com = readCommand().split(" ");
         if (com.length >0){
@@ -76,14 +81,22 @@ public class Rocket extends Physics {
   
         }
     }
-
+    
+    /**
+     * yaws the rocket by rot degrees with euler angles
+     * @param rot 
+     */
     private void yaw(double rot) {  // y- direction rotation
         double x = direction.x()*Math.cos(Math.toRadians(rot))+direction.y()*Math.sin(Math.toRadians(rot));
         double y = (-direction.x()*Math.sin(Math.toRadians(rot)))+direction.y()*Math.cos(Math.toRadians(rot));
         double z = direction.z();
         direction.set(x, y, z);
     }
-
+    
+    /**
+     * Changes the pitch by rot degrees using euler angles
+     * @param rot 
+     */
     private void pitch(double rot) { // x- direction rotation
        rot = Math.toRadians(rot);
        double x = direction.x()*Math.cos(rot)+direction.z()*(-Math.sin(rot));
@@ -92,7 +105,9 @@ public class Rocket extends Physics {
        direction.set(x, y, z);
     }
     
-
+    /**
+     * fires the engines to add force
+     */
     private void fire (){  
         double engineAccel = 10/this.getMass();
         Vector vec = new Vector(direction.x()*engineAccel,direction.y()*engineAccel, direction.z()*engineAccel);
@@ -109,12 +124,17 @@ public class Rocket extends Physics {
         forces[0] = vec; // adds Vector vec to slot 1 of Vector array (in Physics class)
     }
     */
-
+    /**
+     * cuts the engine
+     */
     private void cut() {
         forces[0] = null;
     }
     
     @Override
+    /**
+     * makes the rocket move 1 turn
+     */
     public void go(){
         spacialPositions[0] += velocity.x();  // adds the velocity to the position
         spacialPositions[1] += velocity.y();
